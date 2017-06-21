@@ -56,7 +56,8 @@ namespace SpintiresModsLoader
         #endregion
 
         #region Public Variables;
-        public bool Loaded
+
+        private bool Loaded
         {
             get => _loaded;
             set
@@ -76,7 +77,7 @@ namespace SpintiresModsLoader
             }
         }
 
-        public PropertyChangedListener<Mod> AllModListListener
+        private PropertyChangedListener<Mod> AllModListListener
         {
             get => _allModListListener;
             set
@@ -104,7 +105,7 @@ namespace SpintiresModsLoader
 
         public bool SpintiresConfigXmlFound => File.Exists(Path.Combine(SpintiresConfigXmlPath, "Config.xml"));
 
-        public string ProgramDataPath
+        private string ProgramDataPath
         {
             get => _programDataPath;
             set
@@ -114,7 +115,7 @@ namespace SpintiresModsLoader
             }
         }
 
-        public string ModsPath
+        private string ModsPath
         {
             get => _modsPath;
             set
@@ -127,14 +128,14 @@ namespace SpintiresModsLoader
         public string TempPath
         {
             get => _tempPath;
-            set
+            private set
             {
                 _tempPath = value;
                 NotifyPropertyChanged("TempPath");
             }
         }
 
-        public FileSystemWatcher Watcher
+        private FileSystemWatcher Watcher
         {
             get => _watcher;
             set
@@ -144,7 +145,7 @@ namespace SpintiresModsLoader
             }
         }
 
-        public FileStream ProgramDataLocker
+        private FileStream ProgramDataLocker
         {
             get => _programDataLocker;
             set
@@ -378,20 +379,18 @@ namespace SpintiresModsLoader
             Refresh(true);
         }
 
-        public void Refresh(bool force = false)
+        private void Refresh(bool force = false)
         {
-            if (!ValidateCache() || force)
+            if (ValidateCache() && !force) return;
+            Loaded = false;
+            AllModList.Clear();
+            if (!ValidateCache())
             {
-                Loaded = false;
-                AllModList.Clear();
-                if (!ValidateCache())
-                {
-                    RecreateCache();
-                }
-                ReadCache();
-                _loaded = true;
-                UpdateSpintiresConfigXml();
+                RecreateCache();
             }
+            ReadCache();
+            _loaded = true;
+            UpdateSpintiresConfigXml();
         }
 
         public Mod ReadModConfigFromFile(string filePath)

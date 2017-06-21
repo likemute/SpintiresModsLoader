@@ -26,8 +26,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -48,10 +46,6 @@ namespace SpintiresModsLoader.Views
 
         private CultureInfo _selectedLanguage;
 
-        private string _xmlConfigPath;
-
-        private bool _xmlConfigFound;
-
         /// <summary>
         ///     The _email
         /// </summary>
@@ -61,7 +55,7 @@ namespace SpintiresModsLoader.Views
 
         private ListCollectionView _allModsView;
 
-        public AddModWindow AddNewWin;
+        private AddModWindow _addNewWin;
 
         private ICommand _donatePaypalCommand;
 
@@ -391,15 +385,15 @@ namespace SpintiresModsLoader.Views
             if (openFileDialog.ShowDialog() == true)
                 if (openFileDialog.FileNames.Length>0)
                 {
-                    AddNewWin = new AddModWindow();
-                    ((AddModWindowViewModel) AddNewWin.DataContext).SourceModsFilePaths = openFileDialog.FileNames;
-                    AddNewWin.ShowDialog();
+                    _addNewWin = new AddModWindow();
+                    ((AddModWindowViewModel) _addNewWin.DataContext).SourceModsFilePaths = openFileDialog.FileNames;
+                    _addNewWin.ShowDialog();
                 }
         }
 
         public void CloseAddNewModWindow()
         {
-            AddNewWin.Close();
+            _addNewWin.Close();
         }
     }
 }

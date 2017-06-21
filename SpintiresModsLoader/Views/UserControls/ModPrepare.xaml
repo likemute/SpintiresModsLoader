@@ -40,6 +40,6 @@
                 <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="386" IsEnabled="{Binding InputEditable}" Text="{Binding InputAuthor}" VerticalContentAlignment="Center" Background="White"/>
             </StackPanel>
         </StackPanel>
-        <Button Content="{DynamicResource AddAModToTheRepository}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Command="{Binding AddNewModCommand}"/>
+        <Button Content="{DynamicResource AddModsToTheRepository}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Command="{Binding AddNewModCommand}"/>
     </Grid>
 </UserControl>
