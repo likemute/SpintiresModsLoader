@@ -1,0 +1,19 @@
+﻿<!-- Copyright 2017 by Alexey Andreev <trashtalk.mute@gmail.com>. ModPack.xaml is part of SpintiresModsLoader. license GPL-3.0+ -->
+<UserControl x:Class="SpintiresModsLoader.Views.UserControls.ModPack"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:userControls="clr-namespace:SpintiresModsLoader.Views.UserControls"
+      mc:Ignorable="d"
+      d:DesignHeight="560" d:DesignWidth="740" Width="Auto" Height="Auto">
+    <UserControl.DataContext>
+        <userControls:ModPackViewModel/>
+    </UserControl.DataContext>
+    <Grid Background="#199B9B9B">
+        <Label Content="{DynamicResource PackingAndRegisteringModInRepository}" HorizontalAlignment="Center" Margin="0,48,0,0" VerticalAlignment="Top" FontSize="24" Foreground="White"/>
+        <ProgressBar HorizontalAlignment="Center" Height="50" Margin="0,0,0,90" VerticalAlignment="Bottom" Width="400" Value="{Binding Value, TargetNullValue=40}"/>
+        <Label Content="{Binding Title}" HorizontalAlignment="Center" Margin="0,0,0,100" VerticalAlignment="Center" FontSize="16" Foreground="White"/>
+        <Button Content="{DynamicResource Cancel}" HorizontalAlignment="Center" Command="{Binding CancelCommand}" VerticalAlignment="Bottom" Margin="7,7,7,20"/>
+    </Grid>
+</UserControl>

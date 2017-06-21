@@ -1,0 +1,36 @@
+﻿<!-- Copyright 2017 by Alexey Andreev <trashtalk.mute@gmail.com>. lang.xaml is part of SpintiresModsLoader. license GPL-3.0+ -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="ActiveMods">Active mods</v:String>
+    <v:String x:Key="AddModsToTheRepository">Add mods to the repository</v:String>
+    <v:String x:Key="AlreadyRunning">Already running</v:String>
+    <v:String x:Key="Author">Author:</v:String>
+    <v:String x:Key="ModsRepository">Mods repository</v:String>
+    <v:String x:Key="Cancel">Cancel</v:String>
+    <v:String x:Key="Close">Close</v:String>
+    <v:String x:Key="Error">Error</v:String>
+    <v:String x:Key="Settings">Settings</v:String>
+    <v:String x:Key="FailedToAccuratelyDetermineTheModFolderInTheArchive">Failed to accurately determine the mod folder in the archive</v:String>
+    <v:String x:Key="FileNotFound">File not found</v:String>
+    <v:String x:Key="Hash">Hash:</v:String>
+    <v:String x:Key="ModTitle">Mod title</v:String>
+    <v:String x:Key="PackingAndRegisteringModInRepository">Packing and registering mod in repository</v:String>
+    <v:String x:Key="SelectTheRootFolderWhereModFilesAreLocatedInArchive">Select the root folder where mod files are located in archive</v:String>
+    <v:String x:Key="SpintiresModLoader">Spintires Mod Loader</v:String>
+    <v:String x:Key="UnpackingAndAnalysingTheArchive">Unpacking and analysing the archive</v:String>
+    <v:String x:Key="UseTheRecommendedFolder">Use the recommended folder</v:String>
+    <v:String x:Key="Version">Version</v:String>
+    <v:String x:Key="ModDataNotFoundPleaseFill">Mod data not found. Please fill:</v:String>
+    <v:String x:Key="ModAlreadyAddedWithGreaterVersion">Mod already added with greater version</v:String>
+    <v:String x:Key="AdvancedModeForAddingMods">Advanced mode for adding mods</v:String>
+    <v:String x:Key="Language">Language:</v:String>
+    <v:String x:Key="GameConfigPath">Game config path:</v:String>
+    <v:String x:Key="OtherSettings">Other settings:</v:String>
+    <v:String x:Key="EnableDisableModsDoubleClick">Enable / Disable mods: double click</v:String>
+    <v:String x:Key="ChangeThePriorityOfModsGrabAndDragTheHigherTheModInTheListTheHigherThePriority">Change the priority of mods: grab and drag (the higher the mod in the list, the higher the priority</v:String>
+    <v:String x:Key="DeleteModRightMouseClickOnTheSelectedModAndInTheMenuDeleteOrDeleteButtonOnTheKeyboard">Delete mod: right mouse click on the selected mod, in opened menu - Delete or Delete button on the keyboard</v:String>
+    <v:String x:Key="Browse">Browse</v:String>
+    <v:String x:Key="GameConfigConfigNotFoundFixPath">Game config not found. Please fix the path</v:String>
+    <v:String x:Key="UsuallyItIsThePathOfConfigXml">Usually it is the path of Config.xml</v:String>
+</ResourceDictionary>

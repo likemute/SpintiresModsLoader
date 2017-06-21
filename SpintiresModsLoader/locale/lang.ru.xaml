@@ -1,0 +1,36 @@
+﻿<!-- Copyright 2017 by Alexey Andreev <trashtalk.mute@gmail.com>. lang.ru.xaml is part of SpintiresModsLoader. license GPL-3.0+ -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="ActiveMods">Активные моды</v:String>
+    <v:String x:Key="AddModsToTheRepository">Добавить моды в репозиторий</v:String>
+    <v:String x:Key="AlreadyRunning">Уже запущено</v:String>
+    <v:String x:Key="Author">Автор:</v:String>
+    <v:String x:Key="ModsRepository">Репозиторий модов</v:String>
+    <v:String x:Key="Cancel">Отмена</v:String>
+    <v:String x:Key="Close">Закрыть</v:String>
+    <v:String x:Key="Error">Ошибка</v:String>
+    <v:String x:Key="Settings">Настройка</v:String>
+    <v:String x:Key="FailedToAccuratelyDetermineTheModFolderInTheArchive">Не удалось точно определить корневую папку мода в архиве</v:String>
+    <v:String x:Key="FileNotFound">Файл не найден</v:String>
+    <v:String x:Key="Hash">Хэш:</v:String>
+    <v:String x:Key="ModTitle">Название мода</v:String>
+    <v:String x:Key="PackingAndRegisteringModInRepository">Запаковываю и добавляю мод в репозиторий</v:String>
+    <v:String x:Key="SelectTheRootFolderWhereModFilesAreLocatedInArchive">Выберите корневую папку мода в архиве</v:String>
+    <v:String x:Key="SpintiresModLoader">Spintires Мод Менеджер</v:String>
+    <v:String x:Key="UnpackingAndAnalysingTheArchive">Распаковываю и анализирую архив</v:String>
+    <v:String x:Key="UseTheRecommendedFolder">Использовать рекомендуемую папку</v:String>
+    <v:String x:Key="Version">Версия</v:String>
+    <v:String x:Key="ModDataNotFoundPleaseFill">Данные мода не найдены. Заполните:</v:String>
+    <v:String x:Key="ModAlreadyAddedWithGreaterVersion">Мод уже добавлен в репозиторий с более новой версией</v:String>
+    <v:String x:Key="AdvancedModeForAddingMods">Расширенный режим добавления модов</v:String>
+    <v:String x:Key="Language">Язык:</v:String>
+    <v:String x:Key="GameConfigPath">Путь до конфига игры:</v:String>
+    <v:String x:Key="OtherSettings">Другие настройки:</v:String>
+    <v:String x:Key="EnableDisableModsDoubleClick">Включение выключение модов: двойной клик</v:String>
+    <v:String x:Key="ChangeThePriorityOfModsGrabAndDragTheHigherTheModInTheListTheHigherThePriority">Изменение приоритета модов: схватить мышкой и перетащить (чем выше мод в списке, тем выше приорите</v:String>
+    <v:String x:Key="DeleteModRightMouseClickOnTheSelectedModAndInTheMenuDeleteOrDeleteButtonOnTheKeyboard">Удаление мода: правая кнопка мыши на выбранном моде и в меню - Delete или кнопка Delete на клавиатуре</v:String>
+    <v:String x:Key="Browse">Обзор</v:String>
+    <v:String x:Key="GameConfigConfigNotFoundFixPath">Конфигурационный файл игры не найден, пожалуйста исправьте путь</v:String>
+    <v:String x:Key="UsuallyItIsThePathOfConfigXml">Обычно это путь файла Config.xml</v:String>
+</ResourceDictionary>

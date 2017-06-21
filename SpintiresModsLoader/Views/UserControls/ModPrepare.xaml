@@ -1,0 +1,45 @@
+﻿<!-- Copyright 2017 by Alexey Andreev <trashtalk.mute@gmail.com>. ModPrepare.xaml is part of SpintiresModsLoader. license GPL-3.0+ -->
+<UserControl x:Class="SpintiresModsLoader.Views.UserControls.ModPrepare"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:userControls="clr-namespace:SpintiresModsLoader.Views.UserControls"
+      xmlns:utils="clr-namespace:SpintiresModsLoader.Utils"
+      mc:Ignorable="d" d:DesignWidth="740" Width="Auto">
+    <UserControl.DataContext>
+        <userControls:ModPrepareViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <utils:BoolInvertConverter x:Key="InvertBoolConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Label Content="{DynamicResource FailedToAccuratelyDetermineTheModFolderInTheArchive}" VerticalAlignment="Top" Foreground="#FFFF8B00" Margin="10,10,10,0" Background="{x:Null}" Visibility="{Binding SelectFolderVisible, Mode=OneWay}"/>
+        <Label Content="{DynamicResource SelectTheRootFolderWhereModFilesAreLocatedInArchive}" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFF8B00" Visibility="{Binding SelectFolderVisible, Mode=OneWay}" Margin="10,36,10,0"/>
+        <CheckBox Content="{DynamicResource UseTheRecommendedFolder}" HorizontalAlignment="Left" Margin="10,67,0,0" Visibility="{Binding SelectFolderVisible, Mode=OneWay}" VerticalAlignment="Top" IsChecked="{Binding IsEnabled, ElementName=FolderCombo, Mode=TwoWay, Converter={StaticResource InvertBoolConverter}}" IsEnabled="True" Foreground="White"/>
+        <ComboBox Name="FolderCombo" ItemsSource="{Binding RootFolders}" DisplayMemberPath="Folder" SelectedItem="{Binding SelectedRootFolder}" Visibility="{Binding SelectFolderVisible, Mode=OneWay}" Margin="10,90,10,0" Padding="6,5,5,5" BorderBrush="#00ACACAC" VerticalAlignment="Top" IsEnabled="False">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                    <GradientStop Color="#19E5E5E5" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
+        <Label Content="{DynamicResource ModDataNotFoundPleaseFill}" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFF8B00" Visibility="{Binding InputLabelVisible, Mode=OneWay}" Margin="10,124,10,0"/>
+        <StackPanel Margin="10,148,10,74">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="{DynamicResource ModTitle}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Foreground="White"/>
+                <TextBox Height="23" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="{Binding InputEditable}" Text="{Binding InputName}" HorizontalAlignment="Left" Width="386" Padding="0" VerticalContentAlignment="Center" Background="White"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="{DynamicResource Version}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Foreground="White"/>
+                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="386" IsEnabled="{Binding InputEditable}" Text="{Binding InputVersion}" VerticalContentAlignment="Center" Background="White"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <Label Content="{DynamicResource Author}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Foreground="White"/>
+                <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="386" IsEnabled="{Binding InputEditable}" Text="{Binding InputAuthor}" VerticalContentAlignment="Center" Background="White"/>
+            </StackPanel>
+        </StackPanel>
+        <Button Content="{DynamicResource AddAModToTheRepository}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Command="{Binding AddNewModCommand}"/>
+    </Grid>
+</UserControl>
