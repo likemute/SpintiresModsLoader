@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -191,7 +192,7 @@ namespace SpintiresModsLoader
 
         private void WatcherOnEvent(object sender1, FileSystemEventArgs fileSystemEventArgs)
         {
-            if (fileSystemEventArgs.Name.IndexOf("Temp\\", StringComparison.Ordinal) == -1 && (fileSystemEventArgs.Name != "Temp" || fileSystemEventArgs.ChangeType != WatcherChangeTypes.Changed))
+            if (fileSystemEventArgs.Name.IndexOf("Temp\\", StringComparison.Ordinal) == -1 && (fileSystemEventArgs.Name != "Temp" || fileSystemEventArgs.ChangeType != WatcherChangeTypes.Changed) && fileSystemEventArgs.Name != "run.lock")
             {
                 Application.Current.Dispatcher.Invoke(delegate
                 {
@@ -250,6 +251,24 @@ namespace SpintiresModsLoader
                 var filePath = Path.Combine(ModsPath, fileName);
                 var mod = ReadModConfigFromFile(filePath);
                 if (mod == null) continue;
+                var newElement = new XElement("MediaPath");
+                newElement.SetAttributeValue("Path", mod.FilePath);
+                newElement.SetAttributeValue("Hash", mod.FileHash);
+                newElement.SetAttributeValue("Name", mod.Name);
+                newElement.SetAttributeValue("Version", mod.Version);
+                newElement.SetAttributeValue("Author", mod.Author);
+                rootElement.Add(newElement);
+            }
+            var newDocument = new XDocument(rootElement);
+            newDocument.Save(Path.Combine(ProgramDataPath, "Cache.xml"));
+        }
+
+        private void UpdateCache()
+        {
+            var rootElement = new XElement("Root");
+            rootElement.Add(new XElement("TotalFilesCount", AllModList.Count));
+            foreach (var mod in AllModList)
+            {
                 var newElement = new XElement("MediaPath");
                 newElement.SetAttributeValue("Path", mod.FilePath);
                 newElement.SetAttributeValue("Hash", mod.FileHash);
@@ -339,7 +358,7 @@ namespace SpintiresModsLoader
             var language = key?.GetValue("language", GetLanguage().TwoLetterISOLanguageName).ToString();
             if (language != null) SetLanguage(new CultureInfo(language));
             ProgramDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SpintiresModsLoader");
-            SpintiresConfigXmlPath = key?.GetValue("xmlconfigPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SpinTires")).ToString();
+            _spintiresConfigXmlPath = key?.GetValue("xmlconfigPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SpinTires")).ToString();
             ModsPath = key?.GetValue("modsPath", Path.Combine(ProgramDataPath, "Mods")).ToString();
             TempPath = key?.GetValue("tempPath", Path.Combine(ProgramDataPath, "Temp")).ToString();
             Directory.CreateDirectory(ProgramDataPath);
@@ -359,11 +378,7 @@ namespace SpintiresModsLoader
             CreatePaths();
             ProgramDataLocker = File.Open(Path.Combine(ProgramDataPath, "run.lock"), FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
             key?.Close();
-            AllModList.CollectionChanged += (sender, args) =>
-            {
-                if (_loaded)
-                    UpdateSpintiresConfigXml();
-            };
+            AllModList.CollectionChanged += AllModListOnCollectionChanged;
             AllModListListener = PropertyChangedListener.Create(AllModList);
             AllModListListener.PropertyChanged += (sender, args) =>
             {
@@ -377,6 +392,15 @@ namespace SpintiresModsLoader
                 File.Delete(Path.Combine(_programDataPath, "run.lock"));
             };
             Refresh(true);
+        }
+
+        private void AllModListOnCollectionChanged(object sender1, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (Loaded)
+            {
+                UpdateSpintiresConfigXml();
+                UpdateCache();
+            }
         }
 
         private void Refresh(bool force = false)

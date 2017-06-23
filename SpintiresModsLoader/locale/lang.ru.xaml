@@ -33,4 +33,5 @@
     <v:String x:Key="Browse">Обзор</v:String>
     <v:String x:Key="GameConfigConfigNotFoundFixPath">Конфигурационный файл игры не найден, пожалуйста исправьте путь</v:String>
     <v:String x:Key="UsuallyItIsThePathOfConfigXml">Обычно это путь файла Config.xml</v:String>
+    <v:String x:Key="SupportAuthor">Поддержать автора:</v:String>
 </ResourceDictionary>

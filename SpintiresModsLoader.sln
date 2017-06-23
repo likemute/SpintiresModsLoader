@@ -5,19 +5,36 @@ VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpintiresModsLoader", "SpintiresModsLoader\SpintiresModsLoader.csproj", "{4BB26D73-2F3F-457D-9B95-339C4B589264}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupSpintiresModLoader", "SetupSpintiresModLoader\SetupSpintiresModLoader.vdproj", "{AFB2D3A3-803C-441B-95D1-B50734F1BA4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Deploy|Any CPU = Deploy|Any CPU
+		Deploy|x86 = Deploy|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Debug|x86.Build.0 = Debug|Any CPU
 		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Deploy|Any CPU.Build.0 = Debug|Any CPU
+		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Deploy|x86.ActiveCfg = Debug|Any CPU
+		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Deploy|x86.Build.0 = Debug|Any CPU
 		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Release|x86.ActiveCfg = Release|Any CPU
+		{4BB26D73-2F3F-457D-9B95-339C4B589264}.Release|x86.Build.0 = Release|Any CPU
+		{AFB2D3A3-803C-441B-95D1-B50734F1BA4F}.Debug|Any CPU.ActiveCfg = Debug
+		{AFB2D3A3-803C-441B-95D1-B50734F1BA4F}.Debug|x86.ActiveCfg = Debug
+		{AFB2D3A3-803C-441B-95D1-B50734F1BA4F}.Deploy|Any CPU.ActiveCfg = Debug
+		{AFB2D3A3-803C-441B-95D1-B50734F1BA4F}.Deploy|x86.ActiveCfg = Debug
+		{AFB2D3A3-803C-441B-95D1-B50734F1BA4F}.Release|Any CPU.ActiveCfg = Release
+		{AFB2D3A3-803C-441B-95D1-B50734F1BA4F}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

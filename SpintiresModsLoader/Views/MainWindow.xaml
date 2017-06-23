@@ -80,7 +80,7 @@
                     </Grid>
                 </Border>
                 <Rectangle VerticalAlignment="Bottom" Height="64" Fill="#FF00415F" />
-                <Label Content="Поддержать автора:" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="White" Margin="0,0,280,10" FontSize="18" />
+                <Label Content="{DynamicResource SupportAuthor}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="White" Margin="0,0,280,10" FontSize="18" />
                 <Button Content="{StaticResource PaypalDonateImage}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="116" Margin="10,0,150,10" Command="{Binding DonatePaypalCommand}"/>
                 <Button Content="{StaticResource YandexDonateImage}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Margin="150,0,20,10" Command="{Binding DonateYandexMoneyCommand}"/>
             </Grid>
@@ -128,7 +128,7 @@
             </Border.Style>
         </Border>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Image HorizontalAlignment="Left" Height="16" Margin="10,7,0,7" VerticalAlignment="Top" Width="16" Source="/SpintiresModsLoader;component/Resources/wheel.ico"/>
+            <Image HorizontalAlignment="Left" Height="16" Margin="10,7,0,7" VerticalAlignment="Top" Width="16" Source="/SpintiresModsLoader;component/Resources/Images/wheel.png"/>
             <Label Content="{DynamicResource SpintiresModLoader}" Background="{x:Null}" Foreground="White" BorderThickness="0" Padding="5,7"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
