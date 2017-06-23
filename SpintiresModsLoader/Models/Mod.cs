@@ -32,6 +32,8 @@ namespace SpintiresModsLoader.Models
         private string _name;
         private string _version;
         private bool _addedToGame;
+        private bool _textureCache;
+        private bool _meshCache;
 
         public string Name
         {
@@ -85,6 +87,26 @@ namespace SpintiresModsLoader.Models
             {
                 _fileHash = value;
                 NotifyPropertyChanged("FileHash");
+            }
+        }
+
+        public bool TextureCache
+        {
+            get => _textureCache;
+            set
+            {
+                _textureCache = value;
+                NotifyPropertyChanged("TextureCash");
+            }
+        }
+
+        public bool MeshCache
+        {
+            get => _meshCache;
+            set
+            {
+                _meshCache = value;
+                NotifyPropertyChanged("MeshCash");
             }
         }
 

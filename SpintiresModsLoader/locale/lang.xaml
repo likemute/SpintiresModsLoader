@@ -24,6 +24,7 @@
     <v:String x:Key="ModDataNotFoundPleaseFill">Mod data not found. Please fill:</v:String>
     <v:String x:Key="ModAlreadyAddedWithGreaterVersion">Mod already added with greater version</v:String>
     <v:String x:Key="AdvancedModeForAddingMods">Advanced mode for adding mods</v:String>
+    <v:String x:Key="StoreModsInArchives">Store mods in zip archives</v:String>
     <v:String x:Key="Language">Language:</v:String>
     <v:String x:Key="GameConfigPath">Game config path:</v:String>
     <v:String x:Key="OtherSettings">Other settings:</v:String>
@@ -34,4 +35,5 @@
     <v:String x:Key="GameConfigConfigNotFoundFixPath">Game config not found. Please fix the path</v:String>
     <v:String x:Key="UsuallyItIsThePathOfConfigXml">Usually it is the path of Config.xml</v:String>
     <v:String x:Key="SupportAuthor">Support author:</v:String>
+    <v:String x:Key="LaunchGame">Launch game</v:String>
 </ResourceDictionary>

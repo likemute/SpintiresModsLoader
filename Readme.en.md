@@ -4,7 +4,7 @@
 
 #### Does not use the media folder, but uses the config file without clogging the game, when there are many mods
 
-![Версия 0.0.0.1](https://img.shields.io/badge/Version-0.0.0.1-green.svg)
+![Версия 0.0.0.2](https://img.shields.io/badge/Version-0.0.0.1-green.svg)
 ![Статус - Alpha](https://img.shields.io/badge/Status-Alpha-yellow.svg)
 
 ---

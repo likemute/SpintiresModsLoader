@@ -83,6 +83,8 @@
                 <Label Content="{DynamicResource SupportAuthor}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="White" Margin="0,0,280,10" FontSize="18" />
                 <Button Content="{StaticResource PaypalDonateImage}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="116" Margin="10,0,150,10" Command="{Binding DonatePaypalCommand}"/>
                 <Button Content="{StaticResource YandexDonateImage}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Margin="150,0,20,10" Command="{Binding DonateYandexMoneyCommand}"/>
+                
+                <Label Content="v.0.0.3" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Bottom" Foreground="White"/>
             </Grid>
         </DockPanel>
         <Border Padding="10" Background="#FF00415F" HorizontalAlignment="Right" Width="300" Margin="0,0,-300,0">
@@ -133,6 +135,7 @@
         </StackPanel>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Content="{DynamicResource AddModsToTheRepository}" Command="{Binding AddNewModCommand}"/>
+            <Button Content="{DynamicResource LaunchGame}" Command="{Binding RunGameCommand}"/>
             <Button Content="{DynamicResource Settings}" Command="{Binding ToggleSettingsCommand}"/>
             <Button Content="0" FontFamily="Webdings" Click="MinimizeButtonClick"/>
             <Button Content="r" FontFamily="Webdings" Click="CloseButtonClick"/>

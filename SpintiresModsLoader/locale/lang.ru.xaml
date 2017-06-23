@@ -24,6 +24,7 @@
     <v:String x:Key="ModDataNotFoundPleaseFill">Данные мода не найдены. Заполните:</v:String>
     <v:String x:Key="ModAlreadyAddedWithGreaterVersion">Мод уже добавлен в репозиторий с более новой версией</v:String>
     <v:String x:Key="AdvancedModeForAddingMods">Расширенный режим добавления модов</v:String>
+    <v:String x:Key="StoreModsInArchives">Хранить моды в zip архивах</v:String>
     <v:String x:Key="Language">Язык:</v:String>
     <v:String x:Key="GameConfigPath">Путь до конфига игры:</v:String>
     <v:String x:Key="OtherSettings">Другие настройки:</v:String>
@@ -34,4 +35,5 @@
     <v:String x:Key="GameConfigConfigNotFoundFixPath">Конфигурационный файл игры не найден, пожалуйста исправьте путь</v:String>
     <v:String x:Key="UsuallyItIsThePathOfConfigXml">Обычно это путь файла Config.xml</v:String>
     <v:String x:Key="SupportAuthor">Поддержать автора:</v:String>
+    <v:String x:Key="LaunchGame">Запуск игры</v:String>
 </ResourceDictionary>

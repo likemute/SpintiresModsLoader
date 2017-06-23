@@ -57,6 +57,18 @@ namespace SpintiresModsLoader.Views
 
         private AddModWindow _addNewWin;
 
+        private ICommand _runGameCommand;
+
+        public ICommand RunGameCommand
+        {
+            get => _runGameCommand;
+            set
+            {
+                _runGameCommand = value;
+                NotifyPropertyChanged("RunGameCommand");
+            }
+        }
+
         private ICommand _donatePaypalCommand;
 
         public ICommand DonatePaypalCommand
@@ -276,6 +288,11 @@ namespace SpintiresModsLoader.Views
             DonateYandexMoneyCommand = new RelayCommand(obj =>
             {
                 Process.Start("http://yasobe.ru/na/likemute");
+            });
+
+            RunGameCommand = new RelayCommand(obj =>
+            {
+                Process.Start("steam://rungameid/263280");
             });
 
             SelectSpintiresConfigXmlPathCommand = new RelayCommand(obj =>

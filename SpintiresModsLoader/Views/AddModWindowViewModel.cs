@@ -307,11 +307,32 @@ namespace SpintiresModsLoader.Views
             CurrentPage = new ModPack();
             ModPackViewModel modPackVm = ((ModPackViewModel) CurrentPage.DataContext);
             modPackVm.Title = title;
-            Thread packThread = new Thread(() => {
-
-                var newFilename = Path.Combine(GetApp().TempPath, String.Concat(Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 8), ".zip"));
+            Thread packThread = new Thread(() =>
+            {
+                var newFileName = Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 8);
+                var newFilePath = Path.Combine(GetApp().TempPath, String.Concat(newFileName, ".zip"));
                 try
                 {
+                    var textureCacheExists = false;
+                    if (Directory.Exists(Path.Combine(rootFolder.FullFolder, "TextureCache")))
+                    {
+                        SevenZipCompressor cmpTс = new SevenZipCompressor();
+                        cmpTс.ArchiveFormat = OutArchiveFormat.Zip;
+                        cmpTс.CompressionLevel = CompressionLevel.Low;
+                        cmpTс.CompressDirectory(Path.Combine(rootFolder.FullFolder, "TextureCache"), Path.Combine(GetApp().TempPath, String.Concat(newFileName, "-tc.zip")));
+                        Directory.Delete(Path.Combine(rootFolder.FullFolder, "TextureCache"), true);
+                        textureCacheExists = true;
+                    }
+                    var meshCacheExists = false;
+                    if (Directory.Exists(Path.Combine(rootFolder.FullFolder, "MeshCache")))
+                    {
+                        SevenZipCompressor cmpMс = new SevenZipCompressor();
+                        cmpMс.ArchiveFormat = OutArchiveFormat.Zip;
+                        cmpMс.CompressionLevel = CompressionLevel.Low;
+                        cmpMс.CompressDirectory(Path.Combine(rootFolder.FullFolder, "MeshCache"), Path.Combine(GetApp().TempPath, String.Concat(newFileName, "-mc.zip")));
+                        Directory.Delete(Path.Combine(rootFolder.FullFolder, "MeshCache"), true);
+                        meshCacheExists = true;
+                    }
                     SevenZipCompressor cmp = new SevenZipCompressor();
                     cmp.Compressing += (o, args) =>
                     {
@@ -322,16 +343,18 @@ namespace SpintiresModsLoader.Views
                     };
                     cmp.ArchiveFormat = OutArchiveFormat.Zip;
                     cmp.CompressionLevel = CompressionLevel.Low;
-                    cmp.CompressDirectory(rootFolder.FullFolder, newFilename);
+                    cmp.CompressDirectory(rootFolder.FullFolder, Path.Combine(GetApp().TempPath, String.Concat(newFileName, ".zip")));
                     Directory.Delete(_tmpDir, true);
                     Sys.Dispatcher.Invoke(delegate
                     {
-                        var newMod = GetApp().ReadModConfigFromFile(newFilename);
+                        var newMod = GetApp().ReadModConfigFromFile(Path.Combine(GetApp().TempPath, String.Concat(newFileName, ".zip")));
                         if (newMod == null)
                         {
                             ProcessQueue();
                             return;
                         }
+                        newMod.TextureCache = textureCacheExists;
+                        newMod.MeshCache = meshCacheExists;
                         newMod.AddedToGame = true;
                         GetApp().AddMod(newMod);
                         ProcessQueue();
@@ -356,8 +379,11 @@ namespace SpintiresModsLoader.Views
                 {
                     weight = weight + (30);
                 }
-                var dirNames = new Regex("_templates|billboards|classes|levels|MeshCache|meshes|TextureCache|textures|scripts|sounds|strings", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                string[] subFolders = Directory.EnumerateDirectories(folder).Where(dir => dirNames.IsMatch(dir)).ToArray();
+                var dirNames2 = new Regex("classes|levels", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                string[] subFolders2 = Directory.EnumerateDirectories(folder).Where(dir => dirNames2.IsMatch(new DirectoryInfo(dir).Name.ToLower())).ToArray();
+                weight = weight + (subFolders2.Length * 30);
+                var dirNames = new Regex("_templates|billboards|meshcache|meshes|texturecache|textures|scripts|sounds|strings", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                string[] subFolders = Directory.EnumerateDirectories(folder).Where(dir => dirNames.IsMatch(new DirectoryInfo(dir).Name.ToLower())).ToArray();
                 weight = weight + (subFolders.Length * 10);
                 string[] files = Directory.GetFiles(folder, "media.xml", SearchOption.TopDirectoryOnly);
                 weight = weight + (files.Length * 20);
