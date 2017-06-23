@@ -1,10 +1,13 @@
 ﻿## Менеджер модов для игры Spintires. 
+English description [here](https://github.com/likemute/SpintiresModsLoader/blob/master/Readme.en.md)
 #### Не использует папку media, а использует файл конфига, не засоряя игру, когда стоит много модов
 
 ![Версия 0.0.0.1](https://img.shields.io/badge/%D0%92%D0%B5%D1%80%D1%81%D0%B8%D1%8F-0.0.0.1-green.svg)
 ![Статус - Alpha](https://img.shields.io/badge/%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81-Alpha-yellow.svg)
 
 ---
+
+![screenshot](https://raw.githubusercontent.com/likemute/SpintiresModsLoader/master/images/screenshot_ru.png)
 
 Возможности
 * Включение/Отключение модов игры
