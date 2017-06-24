@@ -310,7 +310,6 @@ namespace SpintiresModsLoader.Views
             Thread packThread = new Thread(() =>
             {
                 var newFileName = Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 8);
-                var newFilePath = Path.Combine(GetApp().TempPath, String.Concat(newFileName, ".zip"));
                 try
                 {
                     var textureCacheExists = false;

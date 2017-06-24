@@ -34,12 +34,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C9622DA8B0287C203489DF7356DAFA29"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4D2678E195A14E8684AB63C60779A28F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -47,6 +41,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_6A93171E76ADFBE723A78BFA91DC4800"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C9622DA8B0287C203489DF7356DAFA29"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -74,6 +74,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -265,15 +273,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Spintires Mod Loader"
-        "ProductCode" = "8:{7F72E833-0D68-4AD7-B307-4E1622C9B703}"
-        "PackageCode" = "8:{EAA679FD-A2E7-4A4B-865B-E01858A352A1}"
+        "ProductCode" = "8:{F80DCC18-5FE4-4154-AD82-1804B504FAE5}"
+        "PackageCode" = "8:{0EB9CAED-370F-4E0A-9A36-7C78491CE60A}"
         "UpgradeCode" = "8:{BB15A88F-E2AA-4837-B45C-F74C3BB6A0EE}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.0.3"
         "Manufacturer" = "8:Likemute"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

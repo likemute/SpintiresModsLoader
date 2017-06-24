@@ -509,6 +509,7 @@ namespace SpintiresModsLoader
                 if (File.Exists(textureCacheName))
                 {
                     Directory.CreateDirectory(Path.Combine(ModsPath, fileNameWithoutExtension));
+                    File.Delete(Path.Combine(ModsPath, fileNameWithoutExtension, "texturecache.zip"));
                     File.Move(textureCacheName, Path.Combine(ModsPath, fileNameWithoutExtension, "texturecache.zip"));
                 }
                 else
@@ -522,7 +523,8 @@ namespace SpintiresModsLoader
                 if (File.Exists(meshCacheName))
                 {
                     Directory.CreateDirectory(Path.Combine(ModsPath, fileNameWithoutExtension));
-                    File.Move(meshCacheName, Path.Combine(ModsPath, fileNameWithoutExtension, "texturecache.zip"));
+                    File.Delete(Path.Combine(ModsPath, fileNameWithoutExtension, "meshcache.zip"));
+                    File.Move(meshCacheName, Path.Combine(ModsPath, fileNameWithoutExtension, "meshcache.zip"));
                 }
                 else
                 {
