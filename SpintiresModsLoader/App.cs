@@ -107,7 +107,7 @@ namespace SpintiresModsLoader
 
         public bool SpintiresConfigXmlFound => File.Exists(Path.Combine(SpintiresConfigXmlPath, "Config.xml"));
 
-        private string ProgramDataPath
+        public string ProgramDataPath
         {
             get => _programDataPath;
             set
@@ -399,7 +399,7 @@ namespace SpintiresModsLoader
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\SpintiresModsLoader");
             var language = key?.GetValue("language", GetLanguage().TwoLetterISOLanguageName).ToString();
             if (language != null) SetLanguage(new CultureInfo(language));
-            ProgramDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SpintiresModsLoader");
+            ProgramDataPath = key?.GetValue("appDataPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SpintiresModsLoader")).ToString();
             _spintiresConfigXmlPath = key?.GetValue("xmlconfigPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SpinTires")).ToString();
             ModsPath = key?.GetValue("modsPath", Path.Combine(ProgramDataPath, "Mods")).ToString();
             TempPath = key?.GetValue("tempPath", Path.Combine(ProgramDataPath, "Temp")).ToString();

@@ -27,6 +27,7 @@
     <v:String x:Key="StoreModsInArchives">Store mods in zip archives</v:String>
     <v:String x:Key="Language">Language:</v:String>
     <v:String x:Key="GameConfigPath">Game config path:</v:String>
+    <v:String x:Key="AppDataPath">App data path (mods etc):</v:String>
     <v:String x:Key="OtherSettings">Other settings:</v:String>
     <v:String x:Key="EnableDisableModsDoubleClick">Enable / Disable mods: double click</v:String>
     <v:String x:Key="ChangeThePriorityOfModsGrabAndDragTheHigherTheModInTheListTheHigherThePriority">Change the priority of mods: grab and drag (the higher the mod in the list, the higher the priority</v:String>
@@ -36,4 +37,5 @@
     <v:String x:Key="UsuallyItIsThePathOfConfigXml">Usually it is the path of Config.xml</v:String>
     <v:String x:Key="SupportAuthor">Support author:</v:String>
     <v:String x:Key="LaunchGame">Launch game</v:String>
+    <v:String x:Key="PleaseRestartTheApplicationForTheChangesToTakeEffect">Please restart the application for the changes to take effect</v:String>
 </ResourceDictionary>

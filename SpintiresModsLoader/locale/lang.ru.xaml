@@ -27,6 +27,7 @@
     <v:String x:Key="StoreModsInArchives">Хранить моды в zip архивах</v:String>
     <v:String x:Key="Language">Язык:</v:String>
     <v:String x:Key="GameConfigPath">Путь до конфига игры:</v:String>
+    <v:String x:Key="AppDataPath">Папка с данными программы (моды и т.д.):</v:String>
     <v:String x:Key="OtherSettings">Другие настройки:</v:String>
     <v:String x:Key="EnableDisableModsDoubleClick">Включение выключение модов: двойной клик</v:String>
     <v:String x:Key="ChangeThePriorityOfModsGrabAndDragTheHigherTheModInTheListTheHigherThePriority">Изменение приоритета модов: схватить мышкой и перетащить (чем выше мод в списке, тем выше приорите</v:String>
@@ -36,4 +37,5 @@
     <v:String x:Key="UsuallyItIsThePathOfConfigXml">Обычно это путь файла Config.xml</v:String>
     <v:String x:Key="SupportAuthor">Поддержать автора:</v:String>
     <v:String x:Key="LaunchGame">Запуск игры</v:String>
+    <v:String x:Key="PleaseRestartTheApplicationForTheChangesToTakeEffect">Пожалуйста перезапустите приложение, чтобы изменения вступили в силу</v:String>
 </ResourceDictionary>

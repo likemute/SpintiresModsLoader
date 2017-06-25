@@ -177,6 +177,18 @@ namespace SpintiresModsLoader.Views
             }
         }
 
+        private ICommand _selectAppDataPathCommand;
+
+        public ICommand SelectAppDataPathCommand
+        {
+            get => _selectAppDataPathCommand;
+            set
+            {
+                _selectAppDataPathCommand = value;
+                NotifyPropertyChanged("SelectAppDataPathCommand");
+            }
+        }
+
         public MainWindowViewModel()
         {
             if (IsInDesignMode)
@@ -305,6 +317,23 @@ namespace SpintiresModsLoader.Views
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
                         GetApp().SpintiresConfigXmlPath = fbd.SelectedPath;
+                    }
+                }
+            });
+
+            SelectAppDataPathCommand = new RelayCommand(obj =>
+            {
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    fbd.SelectedPath = GetApp().ProgramDataPath;
+                    var result = fbd.ShowDialog();
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        var regKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\SpintiresModsLoader");
+                        if (regKey == null) return;
+                        regKey.SetValue("appDataPath", fbd.SelectedPath);
+                        regKey.Close();
+                        MessageBox.Show(Sys.FindResource("PleaseRestartTheApplicationForTheChangesToTakeEffect") as string);
                     }
                 }
             });

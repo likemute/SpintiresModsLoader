@@ -97,6 +97,9 @@
                 <Label Content="{DynamicResource UsuallyItIsThePathOfConfigXml}" Foreground="#FFFF6800" Margin="10,0,0,0" Visibility="{Binding App.SpintiresConfigXmlFound, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=true|collapse, Mode=OneWay}" />
                 <TextBox Height="20" Text="{Binding App.SpintiresConfigXmlPath, Mode=OneWay}" Margin="10,10,10,0" Background="{x:Null}" BorderBrush="#FF0D5D81" IsReadOnly="True" Foreground="White" />
                 <Button Width="40" Content="{DynamicResource Browse}" HorizontalAlignment="Right" Command="{Binding SelectSpintiresConfigXmlPathCommand}" />
+                <Label Content="{DynamicResource AppDataPath}" Foreground="White"/>
+                <TextBox Height="20" Text="{Binding App.ProgramDataPath, Mode=OneWay}" Margin="10,10,10,0" Background="{x:Null}" BorderBrush="#FF0D5D81" IsReadOnly="True" Foreground="White" />
+                <Button Width="40" Content="{DynamicResource Browse}" HorizontalAlignment="Right" Command="{Binding SelectAppDataPathCommand}" />
                 <Label Content="{DynamicResource OtherSettings}" Foreground="White"/>
                 <CheckBox Content="{DynamicResource AdvancedModeForAddingMods}" HorizontalAlignment="Left" Margin="10,5" VerticalAlignment="Top" Foreground="White" Padding="4,-1,0,0" Background="#7FFFFFFF" IsChecked="{Binding ExtendedAddModDialogs, Mode=TwoWay}"/>
             </StackPanel>
