@@ -37,7 +37,7 @@ using System.Xml.Linq;
 using Microsoft.Win32;
 using SevenZip;
 using SpintiresModsLoader.Models;
-using SpintiresModsLoader.Resources.Utils;
+using SpintiresModsLoader.Utils;
 using SpintiresModsLoader.Views.Base;
 
 namespace SpintiresModsLoader
@@ -193,7 +193,7 @@ namespace SpintiresModsLoader
                         meshMediaPath.SetAttributeValue("Path", Path.Combine(Path.Combine(Path.GetDirectoryName(mod.FilePath), Path.GetFileNameWithoutExtension(mod.FilePath)), "meshcache.zip"));
                         meshMediaPath.SetAttributeValue("ModLinePlus", "true");
                         meshMediaPath.SetAttributeValue("DoPrepend", "true");
-                        configElement?.Descendants("MediaPath").FirstOrDefault(p => p.Attribute("Path")?.Value == "Media")?.AddBeforeSelf(newMediaPath);
+                        configElement?.Descendants("MediaPath").FirstOrDefault(p => p.Attribute("Path")?.Value == "Media")?.AddBeforeSelf(meshMediaPath);
                     }
                     if (mod.TextureCache)
                     {
@@ -318,14 +318,17 @@ namespace SpintiresModsLoader
 
         private void ReadCache()
         {
-            if (!SpintiresConfigXmlFound) return;
             var cacheDoc = XDocument.Load(Path.Combine(ProgramDataPath, "Cache.xml"));
             var cacheNodes = cacheDoc.Root?.Descendants("MediaPath");
             if (cacheNodes != null)
             {
-                var configDoc = XDocument.Load(Path.Combine(SpintiresConfigXmlPath, "Config.xml"));
-                var configNodes = configDoc.Descendants("MediaPath").Where(g => g.Attribute("ModLine") != null).ToList();
-
+                XDocument configDoc;
+                List<XElement> configNodes = null;
+                if (SpintiresConfigXmlFound)
+                {
+                    configDoc = XDocument.Load(Path.Combine(SpintiresConfigXmlPath, "Config.xml"));
+                    configNodes = configDoc.Descendants("MediaPath").Where(g => g.Attribute("ModLine") != null).ToList();
+                }
                 foreach (var mediaNode in cacheNodes)
                 {
                     var filePath = (string)mediaNode.Attribute("Path");
@@ -345,9 +348,12 @@ namespace SpintiresModsLoader
                         TextureCache = textureCash,
                         MeshCache = meshCash
                     };
-                    if (configNodes.FirstOrDefault(p => p.Attribute("Path")?.Value == modToAdd.FilePath) != null)
+                    if (SpintiresConfigXmlFound)
                     {
-                        modToAdd.AddedToGame = true;
+                        if (configNodes != null && configNodes.FirstOrDefault(p => p.Attribute("Path")?.Value == modToAdd.FilePath) != null)
+                        {
+                            modToAdd.AddedToGame = true;
+                        }
                     }
                     AllModList.Add(modToAdd);
                 }

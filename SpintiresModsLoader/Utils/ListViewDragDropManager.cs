@@ -32,7 +32,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-namespace SpintiresModsLoader.Resources.Utils
+namespace SpintiresModsLoader.Utils
 {
     #region ListViewDragDropManager
 

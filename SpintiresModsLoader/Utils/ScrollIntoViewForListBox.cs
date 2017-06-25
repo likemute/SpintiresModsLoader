@@ -34,7 +34,7 @@ using System.Windows.Data;
 using System.Windows.Interactivity;
 using SpintiresModsLoader.Models;
 
-namespace SpintiresModsLoader.Resources.Utils
+namespace SpintiresModsLoader.Utils
 {
     public class ScrollIntoViewForListBox : Behavior<ListBox>
     {

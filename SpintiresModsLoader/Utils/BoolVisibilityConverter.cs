@@ -27,7 +27,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace SpintiresModsLoader.Resources.Utils
+namespace SpintiresModsLoader.Utils
 {
     [ValueConversion(typeof(object), typeof(Visibility))]
     public class BoolVisibilityConverter : IValueConverter

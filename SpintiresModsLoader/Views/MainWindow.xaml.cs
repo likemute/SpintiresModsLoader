@@ -26,7 +26,7 @@
 using System.Windows;
 using System.Windows.Input;
 using SpintiresModsLoader.Models;
-using SpintiresModsLoader.Resources.Utils;
+using SpintiresModsLoader.Utils;
 
 namespace SpintiresModsLoader.Views
 {

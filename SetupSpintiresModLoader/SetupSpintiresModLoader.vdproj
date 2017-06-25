@@ -40,13 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6A93171E76ADFBE723A78BFA91DC4800"
+        "OwnerKey" = "8:_C9622DA8B0287C203489DF7356DAFA29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C9622DA8B0287C203489DF7356DAFA29"
+        "OwnerKey" = "8:_6A93171E76ADFBE723A78BFA91DC4800"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -151,11 +151,6 @@
             "AssemblyAsmDisplayName" = "8:System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6A93171E76ADFBE723A78BFA91DC4800"
-                    {
-                    "Name" = "8:System.Windows.Interactivity.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Windows.Interactivity.dll"
             "TargetName" = "8:"
@@ -182,11 +177,6 @@
             "AssemblyAsmDisplayName" = "8:SevenZipSharp, Version=0.64.3890.29348, Culture=neutral, PublicKeyToken=c583e50831f52ea1, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C9622DA8B0287C203489DF7356DAFA29"
-                    {
-                    "Name" = "8:SevenZipSharp.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:SevenZipSharp.dll"
             "TargetName" = "8:"
@@ -273,15 +263,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Spintires Mod Loader"
-        "ProductCode" = "8:{58155E6A-842D-41AD-B289-6A11A0549E95}"
-        "PackageCode" = "8:{A04E9018-B8AF-45D9-BAE0-D8726E33FA3B}"
+        "ProductCode" = "8:{01D7243C-4776-40C7-B23D-88D5F2D63524}"
+        "PackageCode" = "8:{120EF9C5-A245-48C1-8B56-DA98FED3F68C}"
         "UpgradeCode" = "8:{BB15A88F-E2AA-4837-B45C-F74C3BB6A0EE}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.4"
+        "ProductVersion" = "8:1.0.5"
         "Manufacturer" = "8:Likemute"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

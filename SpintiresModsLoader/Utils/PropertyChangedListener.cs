@@ -29,7 +29,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
-namespace SpintiresModsLoader.Resources.Utils
+namespace SpintiresModsLoader.Utils
 {
     public class PropertyChangedListener<T> : INotifyPropertyChanged where T : INotifyPropertyChanged
     {

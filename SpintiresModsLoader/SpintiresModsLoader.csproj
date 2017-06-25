@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>20</ApplicationRevision>
-    <ApplicationVersion>0.0.4.%2a</ApplicationVersion>
+    <ApplicationVersion>0.0.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -118,14 +118,14 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Models\BaseModel.cs" />
-    <Compile Include="Resources\Utils\BindingProxy.cs" />
-    <Compile Include="Resources\Utils\BoolInvertConverter.cs" />
-    <Compile Include="Resources\Utils\BoolVisibilityConverter.cs" />
-    <Compile Include="Resources\Utils\DragAdorner.cs" />
-    <Compile Include="Resources\Utils\ListViewDragDropManager.cs" />
-    <Compile Include="Resources\Utils\MouseUtilities.cs" />
-    <Compile Include="Resources\Utils\PropertyChangedListener.cs" />
-    <Compile Include="Resources\Utils\ScrollIntoViewForListBox.cs" />
+    <Compile Include="Utils\BindingProxy.cs" />
+    <Compile Include="Utils\BoolInvertConverter.cs" />
+    <Compile Include="Utils\BoolVisibilityConverter.cs" />
+    <Compile Include="Utils\DragAdorner.cs" />
+    <Compile Include="Utils\ListViewDragDropManager.cs" />
+    <Compile Include="Utils\MouseUtilities.cs" />
+    <Compile Include="Utils\PropertyChangedListener.cs" />
+    <Compile Include="Utils\ScrollIntoViewForListBox.cs" />
     <Compile Include="Views\AddModWindow.xaml.cs">
       <DependentUpon>AddModWindow.xaml</DependentUpon>
     </Compile>
@@ -226,22 +226,22 @@
   <ItemGroup>
     <PublishFile Include="SharpCompress">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="System.Windows.Interactivity">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

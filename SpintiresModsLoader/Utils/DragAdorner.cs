@@ -27,7 +27,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace SpintiresModsLoader.Resources.Utils
+namespace SpintiresModsLoader.Utils
 {
     /// <summary>
     ///     Renders a visual which can follow the mouse cursor,

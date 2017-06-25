@@ -2,7 +2,7 @@
 <Application x:Class="SpintiresModsLoader.Sys"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:utils="clr-namespace:SpintiresModsLoader.Resources.Utils">
+             xmlns:utils="clr-namespace:SpintiresModsLoader.Utils">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
