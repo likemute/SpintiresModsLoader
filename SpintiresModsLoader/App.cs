@@ -96,7 +96,7 @@ namespace SpintiresModsLoader
                 _spintiresConfigXmlPath = value;
                 var key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\SpintiresModsLoader");
                 if (key == null) return;
-                key.SetValue("xmlconfigPath", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SpinTires"));
+                key.SetValue("xmlconfigPath", value);
                 key.Close();
                 NotifyPropertyChanged("SpintiresConfigXmlPath");
                 NotifyPropertyChanged("SpintiresConfigXmlFound");
@@ -318,6 +318,7 @@ namespace SpintiresModsLoader
 
         private void ReadCache()
         {
+            if (!SpintiresConfigXmlFound) return;
             var cacheDoc = XDocument.Load(Path.Combine(ProgramDataPath, "Cache.xml"));
             var cacheNodes = cacheDoc.Root?.Descendants("MediaPath");
             if (cacheNodes != null)
