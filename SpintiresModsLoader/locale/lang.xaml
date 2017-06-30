@@ -40,4 +40,8 @@
     <v:String x:Key="PleaseRestartTheApplicationForTheChangesToTakeEffect">Please restart the application for the changes to take effect</v:String>
     <v:String x:Key="AddUnrecognizedModArchives">Add unrecognized mod archives</v:String>
     <v:String x:Key="AddDoPrepend">Add "DoPrepend" (gearbox mods etc)</v:String>
+    <v:String x:Key="LogFileWasWrittenTo">Log file was written to:</v:String>
+    <v:String x:Key="CriticalError">Critical Error</v:String>
+    <v:String x:Key="ThereIsNoFreeSpaceOnDriveForThisOperation">There is no free space on drive for this operation</v:String>
+    <v:String x:Key="DiskError">Disk error</v:String>
 </ResourceDictionary>

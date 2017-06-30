@@ -149,7 +149,6 @@ namespace SpintiresModsLoader
 
         private FileStream ProgramDataLocker
         {
-            get => _programDataLocker;
             set
             {
                 _programDataLocker = value;

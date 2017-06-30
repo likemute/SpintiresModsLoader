@@ -27,15 +27,21 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Controls;
+using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Xml.Linq;
 using SevenZip;
 using SpintiresModsLoader.Models;
 using SpintiresModsLoader.Views.Base;
 using SpintiresModsLoader.Views.UserControls;
+using MessageBox = System.Windows.MessageBox;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace SpintiresModsLoader.Views
 {
@@ -144,36 +150,51 @@ namespace SpintiresModsLoader.Views
                         {
                             var existingMod = GetApp().AllModList.FirstOrDefault(p => p.Name == newMod.Name);
                             var newFilename = Path.Combine(GetApp().TempPath, string.Concat(Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 8), ".zip"));
-                            File.Copy(SourceModFilePath, newFilename);
-                            newMod.FilePath = newFilename;
-                            if (existingMod != null)
+                            long length = new FileInfo(SourceModFilePath).Length;
+                            if (CheckFreeSpace(_tmpDir, (ulong)length))
                             {
-                                var currentVersion = new Version(existingMod.Version);
-                                var newVersion = new Version(newMod.Version);
-                                if (newVersion.CompareTo(currentVersion) < 0)
+                                File.Copy(SourceModFilePath, newFilename);
+                                newMod.FilePath = newFilename;
+                                if (existingMod != null)
                                 {
+                                    var currentVersion = new Version(existingMod.Version);
+                                    var newVersion = new Version(newMod.Version);
+                                    if (newVersion.CompareTo(currentVersion) < 0)
+                                    {
+                                        Sys.Dispatcher.Invoke(delegate
+                                        {
+                                            CurrentPage = new ErrorMessageWithButton();
+                                            ((ErrorMessageWithButtonViewModel)CurrentPage.DataContext).Message = Sys.FindResource("ModAlreadyAddedWithGreaterVersion") as string;
+                                            ((ErrorMessageWithButtonViewModel)CurrentPage.DataContext).CloseCommand =
+                                                new RelayCommand(obj =>
+                                                {
+                                                    ProcessQueue();
+                                                });
+                                        });
+                                        return;
+                                    }
                                     Sys.Dispatcher.Invoke(delegate
                                     {
-                                        CurrentPage = new ErrorMessageWithButton();
-                                        ((ErrorMessageWithButtonViewModel)CurrentPage.DataContext).Message = Sys.FindResource("ModAlreadyAddedWithGreaterVersion") as string;
-                                        ((ErrorMessageWithButtonViewModel)CurrentPage.DataContext).CloseCommand =
-                                            new RelayCommand(obj =>
-                                            {
-                                                ProcessQueue();
-                                            });
+                                        GetApp().DeleteMod(existingMod);
                                     });
-                                    return;
                                 }
                                 Sys.Dispatcher.Invoke(delegate
                                 {
-                                    GetApp().DeleteMod(existingMod);
+                                    GetApp().AddMod(newMod);
+                                    ProcessQueue();
                                 });
                             }
-                            Sys.Dispatcher.Invoke(delegate
+                            else
                             {
-                                GetApp().AddMod(newMod);
-                                ProcessQueue();
-                            });
+                                Sys.Dispatcher.Invoke(delegate
+                                {
+                                    MessageBoxResult result = MessageBox.Show(Sys.FindResource("ThereIsNoFreeSpaceOnDriveForThisOperation") as string, Sys.FindResource("DiskError") as string);
+                                    if (result == MessageBoxResult.OK)
+                                    {
+                                        ProcessQueue();
+                                    }
+                                });
+                            }
                             return;
                         }
                     }
@@ -184,22 +205,44 @@ namespace SpintiresModsLoader.Views
                     Directory.CreateDirectory(_tmpDir);
                     using (var extr = new SevenZipExtractor(SourceModFilePath))
                     {
-                        extr.Extracting += (o, args) =>
+                        ulong unpackedSize = 0;
+                        foreach (var archivedFile in extr.ArchiveFileData)
+                        {
+                            unpackedSize = unpackedSize + archivedFile.Size;
+                        }
+                        if (CheckFreeSpace(_tmpDir, unpackedSize * 2))
+                        {
+                            extr.Extracting += (o, args) =>
+                            {
+                                Sys.Dispatcher.Invoke(delegate
+                                {
+                                    ((ModUnpackViewModel)CurrentPage.DataContext).Value = args.PercentDone;
+                                });
+                            };
+                            extr.ExtractArchive(_tmpDir);
+                        }
+                        else
                         {
                             Sys.Dispatcher.Invoke(delegate
                             {
-                                ((ModUnpackViewModel)CurrentPage.DataContext).Value = args.PercentDone;
+                                MessageBoxResult result = MessageBox.Show(Sys.FindResource("ThereIsNoFreeSpaceOnDriveForThisOperation") as string, Sys.FindResource("DiskError") as string);
+                                if (result == MessageBoxResult.OK)
+                                {
+                                    ProcessQueue();
+                                }
                             });
-                        };
-                        extr.ExtractArchive(_tmpDir);
+                            return;
+                        }
                     }
                     var additionalArchiveFiles = Directory.EnumerateFiles(_tmpDir, "*.*", SearchOption.AllDirectories)
-                        .Where(s => s.EndsWith(".zip") || s.EndsWith(".rar") || s.EndsWith(".7z") || s.EndsWith(".gz") || s.EndsWith(".tar.gz") || s.EndsWith(".z"));
+                        .Where(s => s.EndsWith(".zip") || s.EndsWith(".rar") || s.EndsWith(".7z") ||
+                                    s.EndsWith(".gz") || s.EndsWith(".tar.gz") || s.EndsWith(".z"));
                     foreach (var additionalArchiveFile in additionalArchiveFiles)
                     {
                         using (var extr = new SevenZipExtractor(additionalArchiveFile))
                         {
-                            extr.ExtractArchive(Path.Combine(Path.GetDirectoryName(additionalArchiveFile),Path.GetFileNameWithoutExtension(additionalArchiveFile)));
+                            extr.ExtractArchive(Path.Combine(Path.GetDirectoryName(additionalArchiveFile),
+                                Path.GetFileNameWithoutExtension(additionalArchiveFile)));
                             File.Delete(additionalArchiveFile);
                         }
                     }
@@ -249,7 +292,7 @@ namespace SpintiresModsLoader.Views
                         _rootFolders.Clear();
                         ProcessQueue();
                     });
-                    
+
                 }
             });
             Sys.Dispatcher.Invoke(delegate
@@ -439,6 +482,35 @@ namespace SpintiresModsLoader.Views
                 }
             });
             return weightList;
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetDiskFreeSpaceEx(string lpDirectoryName,
+            out ulong lpFreeBytesAvailable,
+            out ulong lpTotalNumberOfBytes,
+            out ulong lpTotalNumberOfFreeBytes);
+
+        private bool CheckFreeSpace(string path, ulong neededBytesCount)
+        {
+            ulong freespace = 0;
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
+
+            if (!path.EndsWith("\\"))
+            {
+                path += '\\';
+            }
+
+            ulong free = 0, dummy1 = 0, dummy2 = 0;
+            if (GetDiskFreeSpaceEx(path, out free, out dummy1, out dummy2))
+            {
+                freespace = free;
+                return freespace > neededBytesCount;
+            }
+            return false;
         }
     }
 }

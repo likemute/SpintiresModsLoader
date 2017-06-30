@@ -28,7 +28,9 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using SpintiresModsLoader.Views;
 using CompressionMode = System.IO.Compression.CompressionMode;
@@ -66,6 +68,7 @@ namespace SpintiresModsLoader
         {
             var sysObject = new Sys();
             sysObject.InitializeComponent();
+            AppDomain.CurrentDomain.UnhandledException += sysObject.CurrentDomainOnUnhandledException;
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
                 try
@@ -94,6 +97,19 @@ namespace SpintiresModsLoader
                 }
             };
             sysObject.Run();
+        }
+
+        private void CurrentDomainOnUnhandledException(object o, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        {
+            var str = unhandledExceptionEventArgs.ExceptionObject.ToString();
+            byte[] text = Encoding.Unicode.GetBytes(Environment.NewLine + DateTime.Now.ToString() + " : " + str);
+            var fileName = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "log.txt");
+            using (var stream = new FileStream(fileName, FileMode.Append, FileAccess.Write))
+            {
+                stream.Write(text, 0, text.Length);
+            };
+            MessageBox.Show(FindResource("LogFileWasWrittenTo") as string + " : " + fileName, FindResource("CriticalError") as string);
+            throw new NotImplementedException();
         }
 
         /// <summary>

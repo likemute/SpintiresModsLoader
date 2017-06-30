@@ -40,4 +40,8 @@
     <v:String x:Key="PleaseRestartTheApplicationForTheChangesToTakeEffect">Пожалуйста перезапустите приложение, чтобы изменения вступили в силу</v:String>
     <v:String x:Key="AddUnrecognizedModArchives">Добавлять нераспознанные архивы модов</v:String>
     <v:String x:Key="AddDoPrepend">Добавлять "DoPrepend" (моды коробки передач и т.д.)</v:String>
+    <v:String x:Key="LogFileWasWrittenTo">Лог файл с ошибкой был создан по адресу:</v:String>
+    <v:String x:Key="CriticalError">Критическая ошибка</v:String>
+    <v:String x:Key="ThereIsNoFreeSpaceOnDriveForThisOperation">Недостаточно места на диске для данной операции</v:String>
+    <v:String x:Key="DiskError">Ошибка диска</v:String>
 </ResourceDictionary>
