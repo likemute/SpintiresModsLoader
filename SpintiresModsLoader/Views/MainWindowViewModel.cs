@@ -42,6 +42,8 @@ namespace SpintiresModsLoader.Views
 
         private bool _extendedAddModDialogs;
 
+        private bool _addUnrecognizedModArchives;
+
         private List<CultureInfo> _languages;
 
         private CultureInfo _selectedLanguage;
@@ -253,6 +255,7 @@ namespace SpintiresModsLoader.Views
             Languages = new List<CultureInfo> {new CultureInfo("ru"), new CultureInfo("en")};
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\SpintiresModsLoader");
             _extendedAddModDialogs = (key?.GetValue("extendedMode", "False").ToString() == "True");
+            _addUnrecognizedModArchives = (key?.GetValue("addUnrecognizedModArchives", "False").ToString() == "True");
 
             ToggleModCommand = new RelayCommand(obj =>
             {
@@ -411,6 +414,20 @@ namespace SpintiresModsLoader.Views
                 RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\SpintiresModsLoader");
                 if (key == null) return;
                 key.SetValue("extendedMode", _extendedAddModDialogs);
+                key.Close();
+            }
+        }
+
+        public bool AddUnrecognizedModArchives
+        {
+            get => _addUnrecognizedModArchives;
+            set
+            {
+                _addUnrecognizedModArchives = value;
+                NotifyPropertyChanged("AddUnrecognizedModArchives");
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\SpintiresModsLoader");
+                if (key == null) return;
+                key.SetValue("addUnrecognizedModArchives", _extendedAddModDialogs);
                 key.Close();
             }
         }

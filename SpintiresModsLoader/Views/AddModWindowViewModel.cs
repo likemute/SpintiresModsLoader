@@ -100,7 +100,15 @@ namespace SpintiresModsLoader.Views
                 }
                 foreach (var dir in di.GetDirectories())
                 {
-                    dir.Delete(true);
+
+                    try
+                    {
+                        dir.Delete(true);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
                 }
             });
         }
@@ -185,6 +193,16 @@ namespace SpintiresModsLoader.Views
                         };
                         extr.ExtractArchive(_tmpDir);
                     }
+                    var additionalArchiveFiles = Directory.EnumerateFiles(_tmpDir, "*.*", SearchOption.AllDirectories)
+                        .Where(s => s.EndsWith(".zip") || s.EndsWith(".rar") || s.EndsWith(".7z") || s.EndsWith(".gz") || s.EndsWith(".tar.gz") || s.EndsWith(".z"));
+                    foreach (var additionalArchiveFile in additionalArchiveFiles)
+                    {
+                        using (var extr = new SevenZipExtractor(additionalArchiveFile))
+                        {
+                            extr.ExtractArchive(Path.Combine(Path.GetDirectoryName(additionalArchiveFile),Path.GetFileNameWithoutExtension(additionalArchiveFile)));
+                            File.Delete(additionalArchiveFile);
+                        }
+                    }
                     Sys.Dispatcher.Invoke(delegate // <--- HERE
                     {
                         _rootFolders.Clear();
@@ -259,6 +277,12 @@ namespace SpintiresModsLoader.Views
                 modPrepareVm.RootFolders.Add(rootFolder);
             }
             modPrepareVm.SelectedRootFolder = selected;
+            if (modPrepareVm.SelectedRootFolder != null)
+            {
+                var gearBoxFiles = Directory.EnumerateFiles(modPrepareVm.SelectedRootFolder.FullFolder, "*.*", SearchOption.TopDirectoryOnly)
+                    .Where(s => s.EndsWith("gui_gearbox") || s.EndsWith("gui_gearbox__d.dds")).ToList().Count;
+                modPrepareVm.InputAddDoPrepend = gearBoxFiles > 0;
+            }
             if (((MainWindowViewModel)Sys.MainWindow.DataContext).ExtendedAddModDialogs)
             {
                 modPrepareVm.AddNewModCommand = new RelayCommand(obj =>
@@ -271,7 +295,8 @@ namespace SpintiresModsLoader.Views
                                     new XElement("name", modPrepareVm.InputName),
                                     new XElement("version", modPrepareVm.InputVersion),
                                     new XElement("author", modPrepareVm.InputAuthor),
-                                    new XElement("versionDate", DateTime.UtcNow.ToString("s") + "Z")
+                                    new XElement("versionDate", DateTime.UtcNow.ToString("s") + "Z"),
+                                    new XElement("DoPrepend", modPrepareVm.InputAddDoPrepend)
                                 )
                             )
                             .Save(Path.Combine(modPrepareVm.SelectedRootFolder.FullFolder, "modinfo.xml"));
@@ -293,7 +318,8 @@ namespace SpintiresModsLoader.Views
                                 new XElement("name", modPrepareVm.InputName),
                                 new XElement("version", modPrepareVm.InputVersion),
                                 new XElement("author", modPrepareVm.InputAuthor),
-                                new XElement("versionDate", DateTime.UtcNow.ToString("s") + "Z")
+                                new XElement("versionDate", DateTime.UtcNow.ToString("s") + "Z"),
+                                new XElement("DoPrepend", modPrepareVm.InputAddDoPrepend)
                             )
                         )
                         .Save(Path.Combine(modPrepareVm.SelectedRootFolder.FullFolder, "modinfo.xml"));
@@ -384,8 +410,10 @@ namespace SpintiresModsLoader.Views
                 var dirNames = new Regex("_templates|billboards|meshcache|meshes|texturecache|textures|scripts|sounds|strings", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 string[] subFolders = Directory.EnumerateDirectories(folder).Where(dir => dirNames.IsMatch(new DirectoryInfo(dir).Name.ToLower())).ToArray();
                 weight = weight + (subFolders.Length * 10);
-                string[] files = Directory.GetFiles(folder, "media.xml", SearchOption.TopDirectoryOnly);
-                weight = weight + (files.Length * 20);
+                string[] simpleFiles = Directory.GetFiles(folder, "*.*", SearchOption.TopDirectoryOnly);
+                weight = weight + simpleFiles.Length;
+                string[] mediaFiles = Directory.GetFiles(folder, "media.xml", SearchOption.TopDirectoryOnly);
+                weight = weight + (mediaFiles.Length * 30);
                 string[] modfiles = Directory.GetFiles(folder, "modinfo.xml", SearchOption.TopDirectoryOnly);
                 weight = weight + (modfiles.Length * 100);
                 if (weight > 0)
@@ -398,6 +426,18 @@ namespace SpintiresModsLoader.Views
                     });
                 }
             }
+            Sys.Dispatcher.Invoke(delegate
+            {
+                if (weightList.Count == 0 && ((MainWindowViewModel)Sys.MainWindow.DataContext).AddUnrecognizedModArchives)
+                {
+                    weightList.Add(new ModPossibleRootFolder()
+                    {
+                        Weight = 1,
+                        Folder = "",
+                        FullFolder = root
+                    });
+                }
+            });
             return weightList;
         }
     }

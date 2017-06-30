@@ -39,6 +39,7 @@
                 <Label Content="{DynamicResource Author}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Foreground="White"/>
                 <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="386" IsEnabled="{Binding InputEditable}" Text="{Binding InputAuthor}" VerticalContentAlignment="Center" Background="White"/>
             </StackPanel>
+            <CheckBox Content="{DynamicResource AddDoPrepend}" HorizontalAlignment="Left" Margin="0" IsEnabled="{Binding InputEditable}" VerticalAlignment="Top" IsChecked="{Binding InputAddDoPrepend, Mode=TwoWay}" Foreground="White"/>
         </StackPanel>
         <Button Content="{DynamicResource AddModsToTheRepository}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Command="{Binding AddNewModCommand}"/>
     </Grid>

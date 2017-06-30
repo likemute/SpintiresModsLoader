@@ -43,6 +43,8 @@ namespace SpintiresModsLoader.Views.UserControls
 
         private string _inputVersion;
 
+        private bool _inputAddDoPrepend;
+
         private bool _modFileExist;
 
         private ModPossibleRootFolder _selectedRootFolder;
@@ -148,6 +150,16 @@ namespace SpintiresModsLoader.Views.UserControls
             }
         }
 
+        public bool InputAddDoPrepend
+        {
+            get => _inputAddDoPrepend;
+            set
+            {
+                _inputAddDoPrepend = value;
+                NotifyPropertyChanged("InputAddDoPrepend");
+            }
+        }
+
         public ModPossibleRootFolder SelectedRootFolder
         {
             get => _selectedRootFolder;
@@ -167,6 +179,8 @@ namespace SpintiresModsLoader.Views.UserControls
                         InputVersion = xmlFileInfo.ReadString();
                         xmlFileInfo.ReadToNextSibling("author");
                         InputAuthor = xmlFileInfo.ReadString();
+                        xmlFileInfo.ReadToNextSibling("DoPrepend");
+                        InputAddDoPrepend = xmlFileInfo.ReadString() == "true";
                         ModFileExist = true;
                     }
                     else

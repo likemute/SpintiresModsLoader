@@ -186,22 +186,30 @@ namespace SpintiresModsLoader
                     newMediaPath.SetAttributeValue("ModLine", "true");
                     newMediaPath.SetAttributeValue("Hash", mod.FileHash);
                     var configElement = xdoc.Element("Config");
-                    configElement?.Descendants("MediaPath").FirstOrDefault(p => p.Attribute("Path")?.Value == "Media")?.AddBeforeSelf(newMediaPath);
+                    if (mod.AddDoPrepend)
+                    {
+                        newMediaPath.SetAttributeValue("DoPrepend", mod.AddDoPrepend);
+                        configElement?.Descendants("MediaPath").Last().AddAfterSelf(newMediaPath);
+                    }
+                    else
+                    {
+                        configElement?.Descendants("MediaPath").FirstOrDefault(p => p.Attribute("Path")?.Value == "Media")?.AddBeforeSelf(newMediaPath);
+                    }
                     if (mod.MeshCache)
                     {
                         var meshMediaPath = new XElement("MediaPath");
                         meshMediaPath.SetAttributeValue("Path", Path.Combine(Path.Combine(Path.GetDirectoryName(mod.FilePath), Path.GetFileNameWithoutExtension(mod.FilePath)), "meshcache.zip"));
                         meshMediaPath.SetAttributeValue("ModLinePlus", "true");
                         meshMediaPath.SetAttributeValue("DoPrepend", "true");
-                        configElement?.Descendants("MediaPath").FirstOrDefault(p => p.Attribute("Path")?.Value == "Media")?.AddBeforeSelf(meshMediaPath);
-                    }
+                        configElement?.Descendants("MediaPath").Last().AddAfterSelf(meshMediaPath);
+                    }  
                     if (mod.TextureCache)
                     {
                         var textureCacheMediaPath = new XElement("MediaPath");
                         textureCacheMediaPath.SetAttributeValue("Path", Path.Combine(Path.Combine(Path.GetDirectoryName(mod.FilePath), Path.GetFileNameWithoutExtension(mod.FilePath)), "texturecache.zip"));
                         textureCacheMediaPath.SetAttributeValue("ModLinePlus", "true");
                         textureCacheMediaPath.SetAttributeValue("DoPrepend", "true");
-                        configElement?.Descendants("MediaPath").FirstOrDefault(p => p.Attribute("Path")?.Value == "Media")?.AddBeforeSelf(textureCacheMediaPath);
+                        configElement?.Descendants("MediaPath").Last().AddAfterSelf(textureCacheMediaPath);
                     }
                 }
             }
@@ -275,6 +283,7 @@ namespace SpintiresModsLoader
                 newElement.SetAttributeValue("Name", mod.Name);
                 newElement.SetAttributeValue("Version", mod.Version);
                 newElement.SetAttributeValue("Author", mod.Author);
+                newElement.SetAttributeValue("DoPrepend", mod.AddDoPrepend);
                 if (Directory.Exists(Path.Combine(ModsPath, Path.GetFileNameWithoutExtension(filePath))))
                 {
                     var extraFiles = Directory.GetFiles(ModsPath, "*.zip");
@@ -310,6 +319,7 @@ namespace SpintiresModsLoader
                 newElement.SetAttributeValue("Author", mod.Author);
                 newElement.SetAttributeValue("TextureCache", mod.TextureCache);
                 newElement.SetAttributeValue("MeshCache", mod.MeshCache);
+                newElement.SetAttributeValue("DoPrepend", mod.AddDoPrepend);
                 rootElement.Add(newElement);
             }
             var newDocument = new XDocument(rootElement);
@@ -338,6 +348,7 @@ namespace SpintiresModsLoader
                     var author = (string)mediaNode.Attribute("Author");
                     var textureCash = mediaNode.Attribute("TextureCache") != null && (bool)mediaNode.Attribute("TextureCache");
                     var meshCash = mediaNode.Attribute("MeshCache") != null && (bool)mediaNode.Attribute("MeshCache");
+                    var doPrepend = mediaNode.Attribute("DoPrepend") != null && (bool)mediaNode.Attribute("DoPrepend");
                     var modToAdd = new Mod
                     {
                         Name = name,
@@ -346,7 +357,8 @@ namespace SpintiresModsLoader
                         FilePath = filePath,
                         FileHash = fileHash,
                         TextureCache = textureCash,
-                        MeshCache = meshCash
+                        MeshCache = meshCash,
+                        AddDoPrepend = doPrepend
                     };
                     if (SpintiresConfigXmlFound)
                     {
@@ -360,7 +372,7 @@ namespace SpintiresModsLoader
             }
         }
 
-        private void AddToCache(string filePath, string fileHash, string name, string version, string author, bool textureCache, bool meshCache)
+        private void AddToCache(string filePath, string fileHash, string name, string version, string author, bool textureCache, bool meshCache, bool doPrepend)
         {
             var xdoc = XDocument.Load(Path.Combine(_programDataPath, "Cache.xml"));
             var mediaNodes = xdoc.Root?.Descendants("MediaPath").Where(p => p.Attribute("Path")?.Value == filePath);
@@ -373,6 +385,7 @@ namespace SpintiresModsLoader
             newElement.SetAttributeValue("Author", author);
             newElement.SetAttributeValue("TextureCache", textureCache);
             newElement.SetAttributeValue("MeshCache", meshCache);
+            newElement.SetAttributeValue("DoPrepend", doPrepend);
             xdoc.Root?.Add(newElement);
             var fileCountXml = xdoc.Root?.Element("TotalFilesCount")?.Value;
             if (fileCountXml != null)
@@ -487,13 +500,16 @@ namespace SpintiresModsLoader
                     var version = xmlFileInfo.ReadString();
                     xmlFileInfo.ReadToNextSibling("author");
                     var author = xmlFileInfo.ReadString();
+                    xmlFileInfo.ReadToNextSibling("DoPrepend");
+                    var addDoPrepend = xmlFileInfo.ReadString() == "true";
                     var newMod = new Mod()
                     {
                         Author = author,
                         FileHash = fileHash,
                         FilePath = filePath,
                         Name = name,
-                        Version = version
+                        Version = version,
+                        AddDoPrepend = addDoPrepend
                     };
                     return newMod;
                 }
@@ -540,7 +556,7 @@ namespace SpintiresModsLoader
             }
             Watcher.EnableRaisingEvents = true;
             mod.FilePath = newPath;
-            AddToCache(newPath, mod.FileHash, mod.Name, mod.Version, mod.Author, mod.TextureCache, mod.MeshCache);
+            AddToCache(newPath, mod.FileHash, mod.Name, mod.Version, mod.Author, mod.TextureCache, mod.MeshCache, mod.AddDoPrepend);
             AllModList.Add(mod);
         }
 

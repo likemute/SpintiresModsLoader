@@ -38,4 +38,6 @@
     <v:String x:Key="SupportAuthor">Поддержать автора:</v:String>
     <v:String x:Key="LaunchGame">Запуск игры</v:String>
     <v:String x:Key="PleaseRestartTheApplicationForTheChangesToTakeEffect">Пожалуйста перезапустите приложение, чтобы изменения вступили в силу</v:String>
+    <v:String x:Key="AddUnrecognizedModArchives">Добавлять нераспознанные архивы модов</v:String>
+    <v:String x:Key="AddDoPrepend">Добавлять "DoPrepend" (моды коробки передач и т.д.)</v:String>
 </ResourceDictionary>

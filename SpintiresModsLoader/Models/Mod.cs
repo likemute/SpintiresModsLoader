@@ -31,6 +31,7 @@ namespace SpintiresModsLoader.Models
         private string _filePath;
         private string _name;
         private string _version;
+        private bool _addDoPrepend;
         private bool _addedToGame;
         private bool _textureCache;
         private bool _meshCache;
@@ -87,6 +88,16 @@ namespace SpintiresModsLoader.Models
             {
                 _fileHash = value;
                 NotifyPropertyChanged("FileHash");
+            }
+        }
+
+        public bool AddDoPrepend
+        {
+            get => _addDoPrepend;
+            set
+            {
+                _addDoPrepend = value;
+                NotifyPropertyChanged("AddDoPrepend");
             }
         }
 
