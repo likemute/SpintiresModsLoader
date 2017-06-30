@@ -83,7 +83,7 @@
                 <Button Content="{StaticResource PaypalDonateImage}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="116" Margin="10,0,150,10" Command="{Binding DonatePaypalCommand}"/>
                 <Button Content="{StaticResource YandexDonateImage}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Margin="150,0,20,10" Command="{Binding DonateYandexMoneyCommand}"/>
                 
-                <Label Content="v.0.0.6" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Bottom" Foreground="White"/>
+                <Label Content="v.0.0.7" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Bottom" Foreground="White"/>
             </Grid>
         </DockPanel>
         <Border Padding="10" Background="#FF00415F" HorizontalAlignment="Right" Width="300" Margin="0,0,-300,0">
